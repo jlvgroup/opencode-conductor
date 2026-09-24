@@ -23,7 +23,7 @@ function safe(/** @type {HookFn} */ fn) {
       );
       return await fn(input);
     } catch (err) {
-      console.error('[omo-v2] hook failed (non-fatal):', err);
+      console.error('[opencode-conductor] hook failed (non-fatal):', err);
       return undefined;
     }
   };
@@ -39,13 +39,13 @@ const hooks = {
     const agent = asString(input.agent);
     const tool = asString(input.tool);
     if (agent && tool && !canUseTool(agent, tool)) {
-      throw new Error(`[omo-v2] denied: ${agent} may not use ${tool}`);
+      throw new Error(`[opencode-conductor] denied: ${agent} may not use ${tool}`);
     }
     if (input.operation === 'push' && !isPushAllowed(input)) {
-      throw new Error('[omo-v2] denied: push requires explicit go');
+      throw new Error('[opencode-conductor] denied: push requires explicit go');
     }
     if (input.operation === 'merge' && !isMergeAllowed(input)) {
-      throw new Error('[omo-v2] denied: merge requires explicit go');
+      throw new Error('[opencode-conductor] denied: merge requires explicit go');
     }
     return undefined;
   }),

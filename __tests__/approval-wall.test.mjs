@@ -6,7 +6,7 @@ import assert from 'node:assert/strict';
 
 const IMPL = '../../src/approval.js';
 
-describe('omo-v2 approval wall (g)', () => {
+describe('opencode-conductor approval wall (g)', () => {
   it('blocks push without explicit approval', async () => {
     const mod = await import(IMPL);
     assert.equal(mod.isPushAllowed({ approved: false }), false);

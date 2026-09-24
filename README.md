@@ -1,4 +1,4 @@
-# omo-v2
+# opencode-conductor
 
 Minimal self-owned [OpenCode V2](https://opencode.ai/v2/docs) orchestration plugin. Successor-in-spirit to the V1-only `oh-my-openagent` workflow it replaces — routing, background delegation, and continuation resume — without OMO's V1 hook surface, which has no V2 equivalent.
 

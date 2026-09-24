@@ -12,7 +12,7 @@ const ALLOWED_HOOKS = new Set([
   'experimental.session.compacting',
 ]);
 
-describe('omo-v2 compaction injection (f)', () => {
+describe('opencode-conductor compaction injection (f)', () => {
   it('exposes experimental.session.compacting handler', async () => {
     const mod = await import(IMPL);
     const hooks = mod.getHookNames();

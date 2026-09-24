@@ -16,7 +16,7 @@ const fixture = JSON.parse(
 const IMPL = '../../src/commands.js';
 const COMMANDS = ['verify', 'code-review', 'security', 'plan', 'tdd', 'azdo-pr-comments'];
 
-describe('omo-v2 command entries (d)', () => {
+describe('opencode-conductor command entries (d)', () => {
   it('fixture covers all six commands (sanitized)', () => {
     for (const c of COMMANDS) assert.ok(fixture[c], `fixture missing /${c}`);
     const raw = JSON.stringify(fixture);

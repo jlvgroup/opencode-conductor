@@ -150,7 +150,7 @@ export function loadRunState(state) {
     }
     return { shimmed: true, runs: [], continuation: null, reason: `unusable run state: ${asReasonKind(state)}` };
   } catch (err) {
-    console.error('[omo-v2] loadRunState failed (non-fatal, shimmed):', err);
+    console.error('[opencode-conductor] loadRunState failed (non-fatal, shimmed):', err);
     return { shimmed: true, runs: [], continuation: null, reason: 'exception while loading' };
   }
 }

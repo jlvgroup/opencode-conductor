@@ -1,5 +1,5 @@
 {
-  "name": "omo-v2",
+  "name": "opencode-conductor",
   "version": "0.1.0",
   "description": "Self-owned minimal OpenCode V2 orchestration plugin: agent routing, background delegation, boulder continuation shim, push/merge approval guard.",
   "type": "module",

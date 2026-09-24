@@ -8,7 +8,7 @@ const IMPL = '../../src/permissions.js';
 const READONLY = ['oracle', 'librarian', 'explore', 'looker', 'plan'];
 const DENIED_TOOLS = ['edit', 'write'];
 
-describe('omo-v2 read-only agents (b)', () => {
+describe('opencode-conductor read-only agents (b)', () => {
   for (const agent of READONLY) {
     for (const tool of DENIED_TOOLS) {
       it(`denies ${tool} for ${agent}`, async () => {

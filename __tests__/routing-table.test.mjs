@@ -17,7 +17,7 @@ const expected = JSON.parse(
 
 const IMPL = '../../src/routing.js';
 
-describe('omo-v2 routing table (a)', () => {
+describe('opencode-conductor routing table (a)', () => {
   it('fixture lists every required agent (sanitized, no secrets)', () => {
     const names = expected.map((r) => r.agent).sort();
     for (const n of [

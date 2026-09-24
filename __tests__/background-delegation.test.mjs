@@ -8,7 +8,7 @@ import assert from 'node:assert/strict';
 
 const IMPL = '../../src/delegation.js';
 
-describe('omo-v2 background delegation (c)', () => {
+describe('opencode-conductor background delegation (c)', () => {
   it('builds subagent request with background:true', async () => {
     const mod = await import(IMPL);
     /** @type {DelegationRequest} */

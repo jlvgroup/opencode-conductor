@@ -14,7 +14,7 @@ const states = JSON.parse(
 
 const IMPL = '../../src/boulder.js';
 
-describe('omo-v2 boulder/run-continuation (e)', () => {
+describe('opencode-conductor boulder/run-continuation (e)', () => {
   it('fixture covers empty/missing/corrupt states', () => {
     assert.ok('empty' in states && 'missing' in states && 'corrupt' in states);
   });
