@@ -1,0 +1,6 @@
+{
+  "empty": { "kind": "empty", "runs": [], "continuation": null },
+  "missing": { "kind": "missing", "path": "REDACTED_STATE_PATH", "runs": null },
+  "corrupt": { "kind": "corrupt", "raw": "<<<not-json>>>", "runs": null },
+  "valid": { "kind": "valid", "runs": [{ "id": "run_001", "status": "done" }], "continuation": { "sessionID": "ses_REDACTED" } }
+}

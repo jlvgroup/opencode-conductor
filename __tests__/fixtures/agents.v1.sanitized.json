@@ -1,0 +1,11 @@
+[
+  { "agent": "junior", "model": "zai/glm-5.3", "mode": null },
+  { "agent": "oracle", "model": "openai/gpt-5.5", "mode": "high" },
+  { "agent": "librarian", "model": "minimax-coding-plan/M3", "mode": null },
+  { "agent": "explore", "model": "zai/glm-5", "mode": null },
+  { "agent": "looker", "model": "openai/gpt-5.6-sol", "mode": "low" },
+  { "agent": "cxm-agent", "model": "claude-minimax/M3", "mode": null },
+  { "agent": "plan", "model": "openai/gpt-5.5", "mode": "high" },
+  { "agent": "general", "model": "minimax/M2.7", "mode": null },
+  { "agent": "lead", "model": null, "mode": null }
+]

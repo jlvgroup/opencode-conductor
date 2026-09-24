@@ -1,0 +1,8 @@
+{
+  "verify": { "description": "Run comprehensive verification gates", "backgroundRequired": true },
+  "code-review": { "description": "Review code changes", "backgroundRequired": true },
+  "security": { "description": "Security review on changes", "backgroundRequired": true },
+  "plan": { "description": "Implementation plan", "backgroundRequired": true },
+  "tdd": { "description": "TDD workflow enforcement", "backgroundRequired": true },
+  "azdo-pr-comments": { "description": "Fetch Azure DevOps PR comments (auth via REDACTED env ref)", "backgroundRequired": false }
+}
