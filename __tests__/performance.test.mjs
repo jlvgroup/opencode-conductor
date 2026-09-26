@@ -8,7 +8,7 @@ import { readdirSync, readFileSync } from 'node:fs';
 import { resolveAgent, listAgents } from '../src/routing.js';
 import { buildDelegationRequest } from '../src/delegation.js';
 import { migrateDocuments } from '../src/boulder.js';
-import plugin, { getHookNames } from '../src/plugin.js';
+import plugin, { getHookNames, hooks } from '../src/plugin.js';
 
 /** @param {number} ms */
 function fmt(ms) {
@@ -57,7 +57,7 @@ test('perf: boulder migration handles the full Mac corpus', () => {
 
 test('perf: compaction hook injects continuation inline', async () => {
   const hook =
-    plugin.hooks[/** @type {keyof typeof plugin.hooks} */ ('experimental.session.compacting')];
+    hooks[/** @type {keyof typeof hooks} */ ('experimental.session.compacting')];
   assert.equal(typeof hook, 'function');
   assert.deepEqual(getHookNames().sort(), [
     'event',

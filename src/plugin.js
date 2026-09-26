@@ -34,7 +34,7 @@ function asString(value) {
   return typeof value === 'string' ? value : '';
 }
 
-const hooks = {
+export const hooks = {
   'tool.execute.before': safe((input) => {
     const agent = asString(input.agent);
     const tool = asString(input.tool);
@@ -65,4 +65,72 @@ export function getHookNames() {
   return Object.keys(hooks);
 }
 
-export default { hooks };
+/**
+ * V2 entrypoint. The V2 loader requires the default export to be a definition
+ * with an `id` plus `effect` or `setup` (plain object suffices — no
+ * `@opencode/plugin` dependency needed). The contract logic above is rewired:
+ *   tool.execute.before -> ctx.tool.hook("execute.before")
+ *   tool.execute.after  -> ctx.tool.hook("execute.after")
+ *   event               -> ctx.event.subscribe (diagnostics sink, abort on cleanup)
+ *   experimental.session.compacting -> ctx.session.hook("compaction").
+ * Compaction injection is best-effort: the V2 compaction event shape is not
+ * fully documented, so continuation state is attached under a namespaced key
+ * (ignored if unsupported, never throws thanks to safe()).
+ */
+export default {
+  id: 'opencode-conductor',
+  /**
+   * @param {{
+   *   tool: { hook: (name: string, fn: HookFn) => Promise<unknown> },
+   *   session: { hook: (name: string, fn: HookFn) => Promise<unknown> },
+   *   event: { subscribe: (opts: { signal: AbortSignal }) => AsyncIterable<unknown> }
+   * }} ctx
+   * @returns {Promise<() => void>}
+   */
+  setup: async (ctx) => {
+    await ctx.tool.hook(
+      'execute.before',
+      safe((input) => {
+        const tool = asString(input.tool);
+        const agent = asString(input.agent);
+        if (agent && tool && !canUseTool(agent, tool)) {
+          throw new Error(`[opencode-conductor] denied: ${agent} may not use ${tool}`);
+        }
+        const cmd = JSON.stringify(input.input ?? '');
+        if (/git\s+push\b/.test(cmd) && !isPushAllowed(input)) {
+          throw new Error('[opencode-conductor] denied: push requires explicit go');
+        }
+        if (/gh\s+pr\s+merge\b/.test(cmd) && !isMergeAllowed(input)) {
+          throw new Error('[opencode-conductor] denied: merge requires explicit go');
+        }
+        return undefined;
+      }),
+    );
+    await ctx.tool.hook(
+      'execute.after',
+      safe(() => undefined),
+    );
+    await ctx.session.hook(
+      'compaction',
+      safe((input) => {
+        const state = loadRunState(
+          'runState' in input ? input.runState : { kind: 'missing' },
+        );
+        if (state.shimmed || !state.continuation) return undefined;
+        input.conductorContinuation = state.continuation;
+        return undefined;
+      }),
+    );
+    const controller = new AbortController();
+    void (async () => {
+      try {
+        for await (const _event of ctx.event.subscribe({ signal: controller.signal })) {
+          // Diagnostics sink; intentionally no-op.
+        }
+      } catch {
+        // Aborted on cleanup.
+      }
+    })();
+    return () => controller.abort();
+  },
+};
