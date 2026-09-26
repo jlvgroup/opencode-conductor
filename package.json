@@ -10,5 +10,8 @@
   },
   "scripts": {
     "test": "node --test __tests__/"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.3"
   }
 }

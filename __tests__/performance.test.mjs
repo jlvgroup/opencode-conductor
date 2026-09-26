@@ -39,7 +39,10 @@ test('perf: delegation request build is negligible', () => {
 test('perf: boulder migration handles the full Mac corpus', () => {
   const dir = new URL('../../../.omo/run-continuation/', import.meta.url);
   const files = readdirSync(dir).filter((f) => f.endsWith('.json'));
-  const raws = files.map((f) => ({ name: f, raw: readFileSync(new URL(f, dir), 'utf8') }));
+  const raws = files.map(
+    /** @param {string} f */
+    (f) => ({ name: f, raw: readFileSync(new URL(f, dir), 'utf8') })
+  );
   const boulderRaw = readFileSync(
     new URL('../../../.omo/boulder.json', import.meta.url),
     'utf8',
